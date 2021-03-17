@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This file is part of Simps
+ *
+ * @link     https://github.com/simps/mqtt
+ * @contact  Lu Fei <lufei@simps.io>
+ *
+ * For the full copyright and license information,
+ * please view the LICENSE file that was distributed with this source code
+ */
+
+require __DIR__ . '/bootstrap.php';
+
+use Symfony\Component\Console\Application;
+use Simps\MQTTCLI\Command\PublishCommand;
+use Simps\MQTTCLI\Command\SubscribeCommand;
+use function Swoole\Coroutine\run;
+
+run(function () {
+    try {
+        $application = new Application('PHPMQTT CLI Tools', 'v1.0.0');
+        $application->add(new PublishCommand());
+        $application->run();
+    } catch (\Swoole\ExitException $e) {
+        // Ignore swoole exit exception
+    }
+});
