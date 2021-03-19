@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Simps\MQTTCLI\Command;
 
+use Simps\MQTTCLI\Handler\PublishHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,14 +34,14 @@ class PublishCommand extends Command
                     new InputOption('port', 'P', InputOption::VALUE_OPTIONAL, 'Connect to the port specified', 1883),
                     new InputOption('topic', 't', InputOption::VALUE_REQUIRED, 'The MQTT topic on which to publish the message'),
                     new InputOption('message', 'm', InputOption::VALUE_REQUIRED, 'Send a single message from the command line'),
-                    new InputOption('id', 'i', InputOption::VALUE_OPTIONAL, 'The id to use for this client'),
+                    new InputOption('id', 'i', InputOption::VALUE_OPTIONAL, 'The id to use for this client', ''),
                     new InputOption('qos', null, InputOption::VALUE_OPTIONAL, 'Specify the quality of service to use for the message, from 0, 1 and 2', 0),
                     new InputOption('dup', null, InputOption::VALUE_OPTIONAL, '', 0),
                     new InputOption('retain', 'r', InputOption::VALUE_OPTIONAL, '', 0),
                     new InputOption('username', 'u', InputOption::VALUE_OPTIONAL, 'Provide a username to be used for authenticating with the broker'),
                     new InputOption('pw', 'p', InputOption::VALUE_OPTIONAL, 'Provide a password to be used for authenticating with the broker'),
-                    new InputOption('disable-clean-session', 'c', InputOption::VALUE_OPTIONAL, "Disable the 'clean session' flag", false),
-                    new InputOption('level', 'l', InputOption::VALUE_REQUIRED, 'MQTT Protocol level', 3),
+                    new InputOption('clean-session', 'c', InputOption::VALUE_OPTIONAL, "Setting the 'clean session' flag", true),
+                    new InputOption('level', 'l', InputOption::VALUE_REQUIRED, 'MQTT Protocol level', 4),
                     new InputOption('keepalive', 'k', InputOption::VALUE_OPTIONAL, 'The number of seconds between sending PING commands to the broker for the purposes of informing it we are still connected and functioning', 0),
                     new InputOption('will-topic', 'wt', InputOption::VALUE_OPTIONAL, 'The topic on which to send a Will, in the event that the client disconnects unexpectedly'),
                     new InputOption('will-message', 'wm', InputOption::VALUE_OPTIONAL, 'Specify a message that will be stored by the broker and sent out if this client disconnects unexpectedly'),
@@ -52,6 +53,6 @@ class PublishCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        return Command::SUCCESS;
+        return (new PublishHandler())->handle($input, $output);
     }
 }
