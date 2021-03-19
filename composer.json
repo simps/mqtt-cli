@@ -1,46 +1,47 @@
 {
-    "name": "simps/mqtt-cli",
-    "description": "PHPMQTT CLI Tools",
-    "keywords": [
-        "php",
-        "simps",
-        "mqtt",
-        "swoole",
-        "client",
-        "coroutine",
-        "mqtt_cli",
-        "mqtt_client",
-        "mqtt_protocol",
-        "mqtt3.1",
-        "mqtt5.0"
-    ],
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "Lu Fei",
-            "email": "lufei@simps.io"
-        }
-    ],
-    "require": {
-        "symfony/console": "^5.2",
-        "simps/mqtt": "^1.3",
-        "friendsofphp/php-cs-fixer": "^2.18"
-    },
-    "autoload": {
-        "psr-4": {
-            "Simps\\MQTTCLI\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "SimpsTest\\MQTTCLI\\": "tests/"
-        }
-    },
-    "scripts": {
-        "cs-check": "/usr/bin/env php ./vendor/bin/php-cs-fixer fix --dry-run",
-        "cs-fix": "/usr/bin/env php ./vendor/bin/php-cs-fixer fix"
-    },
-    "bin": [
-        "bin/mqtt"
-    ]
+  "name": "simps/mqtt-cli",
+  "description": "PHPMQTT CLI Tools",
+  "keywords": [
+    "php",
+    "simps",
+    "mqtt",
+    "swoole",
+    "client",
+    "coroutine",
+    "mqtt_cli",
+    "mqtt_client",
+    "mqtt_protocol",
+    "mqtt3.1",
+    "mqtt5.0"
+  ],
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Lu Fei",
+      "email": "lufei@simps.io"
+    }
+  ],
+  "require": {
+    "symfony/console": "^5.2",
+    "simps/mqtt": "^1.3",
+    "friendsofphp/php-cs-fixer": "^2.18",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Simps\\MQTTCLI\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SimpsTest\\MQTTCLI\\": "tests/"
+    }
+  },
+  "scripts": {
+    "cs-check": "/usr/bin/env php ./vendor/bin/php-cs-fixer fix --dry-run",
+    "cs-fix": "/usr/bin/env php ./vendor/bin/php-cs-fixer fix"
+  },
+  "bin": [
+    "bin/mqtt"
+  ]
 }
