@@ -47,6 +47,7 @@ class PublishCommand extends Command
                     new InputOption('will-message', 'wm', InputOption::VALUE_OPTIONAL, 'Specify a message that will be stored by the broker and sent out if this client disconnects unexpectedly'),
                     new InputOption('will-qos', 'wq', InputOption::VALUE_OPTIONAL, 'The QoS to use for the Will', 0),
                     new InputOption('will-retain', 'wr', InputOption::VALUE_OPTIONAL, 'If given, if the client disconnects unexpectedly the message sent out will be treated as a retained message', 0),
+                    new InputOption('ssl', 'S', InputOption::VALUE_OPTIONAL, 'Enable SSL encryption', false),
                 ])
             );
     }

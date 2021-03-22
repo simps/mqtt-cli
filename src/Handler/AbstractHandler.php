@@ -73,6 +73,20 @@ abstract class AbstractHandler
         return (bool) $this->input->getOption('clean-session');
     }
 
+    public function getSSL(): bool
+    {
+        return (bool) $this->input->getOption('ssl');
+    }
+
+    public function getSocketType(): int
+    {
+        if ($this->getSSL()) {
+            return SWOOLE_SOCK_TCP | SWOOLE_SSL;
+        }
+
+        return SWOOLE_SOCK_TCP;
+    }
+
     public function getKeepAlive(): int
     {
         return (int) $this->input->getOption('keepalive');
@@ -133,6 +147,7 @@ abstract class AbstractHandler
             ->setKeepAlive($this->getKeepAlive())
             ->setProtocolName($this->getProtocolName())
             ->setProtocolLevel($this->getProtocolLevel())
+            ->setSockType($this->getSocketType())
             ->setMaxAttempts(0); // Disable auto reconnection
     }
 
