@@ -28,9 +28,17 @@ use Simps\MQTTCLI\Command\PublishCommand;
 use Simps\MQTTCLI\Command\SubscribeCommand;
 use function Swoole\Coroutine\run;
 
-run(function () {
+$logo = <<<LOGO
+  ____  _   _ ____  __  __  ___ _____ _____
+ |  _ \| | | |  _ \|  \/  |/ _ \_   _|_   _|
+ | |_) | |_| | |_) | |\/| | | | || |   | |
+ |  __/|  _  |  __/| |  | | |_| || |   | |
+ |_|   |_| |_|_|   |_|  |_|\__\_\|_|   |_|
+LOGO;
+
+run(function () use ($logo) {
     try {
-        $application = new Application('PHPMQTT CLI Tools', 'v1.0.0');
+        $application = new Application("{$logo}\n\nPHPMQTT CLI Tools", 'v1.0.0');
         $application->add(new PublishCommand());
         $application->run();
     } catch (\Swoole\ExitException $e) {
