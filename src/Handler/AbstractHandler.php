@@ -156,13 +156,21 @@ abstract class AbstractHandler
         return [];
     }
 
+    protected function log($msg): void
+    {
+        $date = date('Y-m-d H:i:s');
+        $this->output->writeln("[{$date}]: {$msg}");
+    }
+
     protected function logInfo($msg): void
     {
-        $this->output->writeln("<info>{$msg}</info>");
+        $date = date('Y-m-d H:i:s');
+        $this->output->writeln("<info>[{$date}]: {$msg}</info>");
     }
 
     protected function logError($msg): void
     {
-        $this->output->writeln("<error>{$msg}</error>");
+        $date = date('Y-m-d H:i:s');
+        $this->output->writeln("<error>[{$date}]: {$msg}</error>");
     }
 }
