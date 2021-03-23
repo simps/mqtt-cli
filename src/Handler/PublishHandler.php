@@ -41,7 +41,7 @@ class PublishHandler extends AbstractHandler
             if ($this->getConnectConfig()->isMQTT5()) {
                 $this->logInfo("Connect Reason Code: {$connect['code']}, Reason: " . ReasonCode::getReasonPhrase($connect['code']));
             }
-            $publish = $client->publish($topic, $message, $this->getQos(), $this->getDup(), $this->getRetain());
+            $publish = $client->publish($topic, $message, $this->getQos(), $this->getDup(), $this->getRetain(), $this->getProperties('publish'));
         } catch (\Throwable $e) {
             $this->logError('Publish error');
             goto failure;

@@ -49,6 +49,7 @@ class PublishCommand extends Command
                     new InputOption('will-retain', null, InputOption::VALUE_OPTIONAL, 'If given, if the client disconnects unexpectedly the message sent out will be treated as a retained message', 0),
                     new InputOption('ssl', 'S', InputOption::VALUE_OPTIONAL, 'Enable SSL encryption', false),
                     new InputOption('config-path', null, InputOption::VALUE_OPTIONAL, 'Setting the Swoole config file path'),
+                    new InputOption('properties-path', null, InputOption::VALUE_OPTIONAL, 'Setting the Properties config file path'),
                 ])
             );
     }

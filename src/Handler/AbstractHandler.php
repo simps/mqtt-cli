@@ -149,6 +149,7 @@ abstract class AbstractHandler
             ->setProtocolLevel($this->getProtocolLevel())
             ->setSockType($this->getSocketType())
             ->setSwooleConfig($this->getSwooleConfig())
+            ->setProperties($this->getProperties('connect'))
             ->setMaxAttempts(0); // Disable auto reconnection
     }
 
@@ -177,6 +178,22 @@ abstract class AbstractHandler
         $path = $this->input->getOption('config-path');
         if ($path && is_file($path)) {
             $content = include $path;
+
+            return $content;
+        }
+
+        return [];
+    }
+
+    public function getProperties(string $key = ''): array
+    {
+        $path = $this->input->getOption('properties-path');
+        if ($path && is_file($path)) {
+            $content = include $path;
+
+            if ($key) {
+                return $content[$key] ?? [];
+            }
 
             return $content;
         }
