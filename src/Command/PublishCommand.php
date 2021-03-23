@@ -43,11 +43,12 @@ class PublishCommand extends Command
                     new InputOption('clean-session', 'c', InputOption::VALUE_OPTIONAL, "Setting the 'clean session' flag", true),
                     new InputOption('level', 'l', InputOption::VALUE_REQUIRED, 'MQTT Protocol level', 4),
                     new InputOption('keepalive', 'k', InputOption::VALUE_OPTIONAL, 'The number of seconds between sending PING commands to the broker for the purposes of informing it we are still connected and functioning', 0),
-                    new InputOption('will-topic', 'wt', InputOption::VALUE_OPTIONAL, 'The topic on which to send a Will, in the event that the client disconnects unexpectedly'),
-                    new InputOption('will-message', 'wm', InputOption::VALUE_OPTIONAL, 'Specify a message that will be stored by the broker and sent out if this client disconnects unexpectedly'),
-                    new InputOption('will-qos', 'wq', InputOption::VALUE_OPTIONAL, 'The QoS to use for the Will', 0),
-                    new InputOption('will-retain', 'wr', InputOption::VALUE_OPTIONAL, 'If given, if the client disconnects unexpectedly the message sent out will be treated as a retained message', 0),
+                    new InputOption('will-topic', null, InputOption::VALUE_OPTIONAL, 'The topic on which to send a Will, in the event that the client disconnects unexpectedly'),
+                    new InputOption('will-message', null, InputOption::VALUE_OPTIONAL, 'Specify a message that will be stored by the broker and sent out if this client disconnects unexpectedly'),
+                    new InputOption('will-qos', null, InputOption::VALUE_OPTIONAL, 'The QoS to use for the Will', 0),
+                    new InputOption('will-retain', null, InputOption::VALUE_OPTIONAL, 'If given, if the client disconnects unexpectedly the message sent out will be treated as a retained message', 0),
                     new InputOption('ssl', 'S', InputOption::VALUE_OPTIONAL, 'Enable SSL encryption', false),
+                    new InputOption('config-path', null, InputOption::VALUE_OPTIONAL, 'Setting the Swoole config file path'),
                 ])
             );
     }
