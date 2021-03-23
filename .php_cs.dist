@@ -106,10 +106,10 @@ return PhpCsFixer\Config::create()
         PhpCsFixer\Finder::create()
             ->in([
                 __DIR__ . '/src',
-                __DIR__ . '/bin',
             ])
             ->append([
                 __FILE__,
+                __DIR__ . '/bin/mqtt',
             ])
     )
     ->setUsingCache(false);

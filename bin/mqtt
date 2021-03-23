@@ -3,13 +3,12 @@
 /**
  * This file is part of Simps
  *
- * @link     https://github.com/simps/mqtt
+ * @see     https://github.com/simps/mqtt
  * @contact  Lu Fei <lufei@simps.io>
  *
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code
  */
-
 foreach (
     [
         __DIR__ . '/../../../autoload.php',
@@ -23,12 +22,11 @@ foreach (
     }
 }
 
-use Symfony\Component\Console\Application;
 use Simps\MQTTCLI\Command\PublishCommand;
-use Simps\MQTTCLI\Command\SubscribeCommand;
+use Symfony\Component\Console\Application;
 use function Swoole\Coroutine\run;
 
-$logo = <<<LOGO
+$logo = <<<'LOGO'
   ____  _   _ ____  __  __  ___ _____ _____
  |  _ \| | | |  _ \|  \/  |/ _ \_   _|_   _|
  | |_) | |_| | |_) | |\/| | | | || |   | |
@@ -36,6 +34,7 @@ $logo = <<<LOGO
  |_|   |_| |_|_|   |_|  |_|\__\_\|_|   |_|
 LOGO;
 
+\Swoole\Runtime::enableCoroutine(SWOOLE_HOOK_ALL);
 run(function () use ($logo) {
     try {
         $application = new Application("{$logo}\n\nPHPMQTT CLI Tools", 'v1.0.0');
