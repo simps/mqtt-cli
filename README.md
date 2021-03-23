@@ -19,7 +19,7 @@ composer require simps/mqtt-cli
 ### Publish
 
 ```bash
-$ php bin/mqtt publish --help
+$ php vendor/bin/mqtt publish --help
 Description:
   Publishing simple messages
 
