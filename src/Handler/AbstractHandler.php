@@ -148,6 +148,7 @@ abstract class AbstractHandler
             ->setProtocolName($this->getProtocolName())
             ->setProtocolLevel($this->getProtocolLevel())
             ->setSockType($this->getSocketType())
+            ->setSwooleConfig($this->getSwooleConfig())
             ->setMaxAttempts(0); // Disable auto reconnection
     }
 
@@ -166,6 +167,18 @@ abstract class AbstractHandler
                 'qos' => $this->getWillQos(),
                 'retain' => $this->getWillRetain(),
             ];
+        }
+
+        return [];
+    }
+
+    public function getSwooleConfig(): array
+    {
+        $path = $this->input->getOption('config-path');
+        if ($path && is_file($path)) {
+            $content = include $path;
+
+            return $content;
         }
 
         return [];
