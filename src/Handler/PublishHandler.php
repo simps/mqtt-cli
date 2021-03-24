@@ -34,11 +34,12 @@ class PublishHandler extends AbstractHandler
         }
 
         try {
-            $client = $this->getMqttClient();
+            $config = $this->getConnectConfig();
+            $client = $this->getMqttClient($this->getHost(), $this->getPort(), $config);
             $connect = $client->connect($this->getCleanSession(), $this->genWillData());
             $this->logInfo("Connect {$this->getHost()} successfully, recv: ");
             $this->log(json_encode($connect));
-            if ($this->getConnectConfig()->isMQTT5()) {
+            if ($config->isMQTT5()) {
                 $this->logInfo("Connect Reason Code: {$connect['code']}, Reason: " . ReasonCode::getReasonPhrase($connect['code']));
             }
             $publish = $client->publish($topic, $message, $this->getQos(), $this->getDup(), $this->getRetain(), $this->getProperties('publish'));
@@ -50,7 +51,7 @@ class PublishHandler extends AbstractHandler
         if (is_array($publish)) {
             $this->logInfo("Publish message '{$message}' to '{$topic}', recv: ");
             $this->log(json_encode($publish));
-            if ($this->getConnectConfig()->isMQTT5()) {
+            if ($config->isMQTT5()) {
                 $this->logInfo("Publish Reason Code: {$publish['code']}, Reason: " . ReasonCode::getReasonPhrase($publish['code']));
                 if ($publish['code']) {
                     goto failure;

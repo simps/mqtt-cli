@@ -97,6 +97,29 @@ abstract class AbstractHandler
         return (string) $this->input->getOption('topic');
     }
 
+    public function getSubTopic(): array
+    {
+        return $this->input->getOption('topic');
+    }
+
+    public function getSubQos(): array
+    {
+        $qos = $this->input->getOption('qos');
+
+        $subQos = [];
+        if ($this->getProtocolLevel() === ProtocolInterface::MQTT_PROTOCOL_LEVEL_5_0) {
+            foreach ($qos as $item) {
+                $subQos[] = ['qos' => (int) $item];
+            }
+        } else {
+            foreach ($qos as $item) {
+                $subQos[] = (int) $item;
+            }
+        }
+
+        return $subQos;
+    }
+
     public function getMessage(): string
     {
         return (string) $this->input->getOption('message');
@@ -153,9 +176,9 @@ abstract class AbstractHandler
             ->setMaxAttempts(0); // Disable auto reconnection
     }
 
-    public function getMqttClient(): Client
+    public function getMqttClient(string $host, int $port, ClientConfig $config): Client
     {
-        return new Client($this->getHost(), $this->getPort(), $this->getConnectConfig());
+        return new Client($host, $port, $config);
     }
 
     public function genWillData(): array
@@ -199,6 +222,11 @@ abstract class AbstractHandler
         }
 
         return [];
+    }
+
+    public function getUnsubscribe(): array
+    {
+        return $this->input->getOption('unsubscribe');
     }
 
     protected function log($msg): void
