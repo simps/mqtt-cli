@@ -43,7 +43,7 @@ class PublishHandler extends AbstractHandler
             }
             $publish = $client->publish($topic, $message, $this->getQos(), $this->getDup(), $this->getRetain(), $this->getProperties('publish'));
         } catch (\Throwable $e) {
-            $this->logError('Publish error');
+            $this->logError("Publish error, {$e->getMessage()}");
             goto failure;
         }
 
