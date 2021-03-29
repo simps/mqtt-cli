@@ -23,6 +23,7 @@ foreach (
 }
 
 use Simps\MQTTCLI\Command\PublishCommand;
+use Simps\MQTTCLI\Command\SubscribeCommand;
 use Symfony\Component\Console\Application;
 use function Swoole\Coroutine\run;
 
@@ -37,8 +38,9 @@ LOGO;
 \Swoole\Runtime::enableCoroutine(SWOOLE_HOOK_ALL);
 run(function () use ($logo) {
     try {
-        $application = new Application("{$logo}\n\nPHPMQTT CLI Tools", 'v1.0.0');
+        $application = new Application("{$logo}\n\nPHPMQTT CLI Tools", 'v0.1.1');
         $application->add(new PublishCommand());
+        $application->add(new SubscribeCommand());
         $application->run();
     } catch (\Swoole\ExitException $e) {
         // Ignore swoole exit exception
