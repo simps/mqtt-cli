@@ -190,6 +190,7 @@ abstract class AbstractHandler
                 'message' => $this->getWillMessage(),
                 'qos' => $this->getWillQos(),
                 'retain' => $this->getWillRetain(),
+                'properties' => $this->getProperties('will'),
             ];
         }
 
