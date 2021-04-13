@@ -105,7 +105,6 @@ class SubscribeHandler extends AbstractHandler
                     $this->log(json_encode($buffer));
                     $event = $this->getEvent();
                     if (!empty($event) && class_exists($event)) {
-                        echo 'sas';
                         (new EventDispatcher())->dispatch(new $event($client, $input, $output));
                     }
                 }
