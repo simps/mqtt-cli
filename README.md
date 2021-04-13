@@ -88,6 +88,7 @@ Options:
       --config-path[=CONFIG-PATH]          Setting the Swoole config file path
       --properties-path[=PROPERTIES-PATH]  Setting the Properties config file path
   -U, --unsubscribe[=UNSUBSCRIBE]          Topics that need to be unsubscribed (multiple values allowed)
+  -e, --event[=EVENT]                      Subscribed EventDispatcher [default: ""]
   -h, --help                               Display help for the given command. When no command is given display help for the list command
   -q, --quiet                              Do not output any message
   -V, --version                            Display this application version
