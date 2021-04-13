@@ -230,6 +230,11 @@ abstract class AbstractHandler
         return $this->input->getOption('unsubscribe');
     }
 
+    public function getEvent(): string
+    {
+        return $this->input->getOption('event');
+    }
+
     protected function log($msg): void
     {
         $date = date('Y-m-d H:i:s');
