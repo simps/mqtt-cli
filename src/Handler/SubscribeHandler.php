@@ -19,6 +19,7 @@ use Simps\MQTT\Protocol\Types;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class SubscribeHandler extends AbstractHandler
 {
@@ -102,8 +103,11 @@ class SubscribeHandler extends AbstractHandler
                 $buffer = $client->recv();
                 if ($buffer && $buffer !== true) {
                     $this->log(json_encode($buffer));
-                    // TODO: need event
-                    // $client $this->input $this->output
+                    $event = $this->getEvent();
+                    if (!empty($event) && class_exists($event)) {
+                        echo 'sas';
+                        (new EventDispatcher())->dispatch(new $event($client, $input, $output));
+                    }
                 }
                 if ($timeSincePing <= (time() - $client->getConfig()->getKeepAlive())) {
                     $buffer = $client->ping();

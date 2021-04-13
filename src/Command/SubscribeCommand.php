@@ -48,6 +48,7 @@ class SubscribeCommand extends Command
                     new InputOption('config-path', null, InputOption::VALUE_OPTIONAL, 'Setting the Swoole config file path'),
                     new InputOption('properties-path', null, InputOption::VALUE_OPTIONAL, 'Setting the Properties config file path'),
                     new InputOption('unsubscribe', 'U', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Topics that need to be unsubscribed'),
+                    new InputOption('event', 'e', InputOption::VALUE_OPTIONAL, 'Subscribed EventDispatcher', ''),
                 ])
             );
     }
