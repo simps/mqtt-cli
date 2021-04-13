@@ -63,12 +63,26 @@ class SubscribeHandler extends AbstractHandler
             if ($config->isMQTT5()) {
                 $this->logInfo("Connect Reason Code: {$connect['code']}, Reason: " . ReasonCode::getReasonPhrase($connect['code']));
             }
-            // TODO: unsubscribe
+
+            // unsubscribe
+            $un_subscribe = $this->getUnsubscribe();
+            if (!empty($un_subscribe)) {
+                $un_subscribe_res = $client->unSubscribe($un_subscribe, $this->getProperties('unsubscribe'));
+                $this->log(json_encode($un_subscribe_res));
+
+                $unsub_ack_data = array_combine($topic, $un_subscribe_res['codes']);
+                foreach ($unsub_ack_data as $key => $code) {
+                    $this->logInfo("UnSubscribe [{$key}], Reason Code: {$code}, Reason: " . ReasonCode::getReasonPhrase($code));
+                }
+
+                if (empty($subscribe)) {
+                    return Command::SUCCESS;
+                }
+            }
 
             // subscribe
             $sub_ack = $client->subscribe($subscribe, $this->getProperties('subscribe'));
             $this->log(json_encode($sub_ack));
-
             if (is_array($sub_ack)) {
                 if ($sub_ack['type'] === Types::SUBACK) {
                     $sub_ack_data = array_combine($topic, $sub_ack['codes']);
@@ -77,6 +91,7 @@ class SubscribeHandler extends AbstractHandler
                     }
                 }
                 if (isset($sub_ack['code'])) {
+                    $client->close();
                     $this->logError('Subscribe error, ' . ReasonCode::getReasonPhrase($sub_ack['code']));
                     goto failure;
                 }
@@ -87,7 +102,8 @@ class SubscribeHandler extends AbstractHandler
                 $buffer = $client->recv();
                 if ($buffer && $buffer !== true) {
                     $this->log(json_encode($buffer));
-                    // need event
+                    // TODO: need event
+                    // $client $this->input $this->output
                 }
                 if ($timeSincePing <= (time() - $client->getConfig()->getKeepAlive())) {
                     $buffer = $client->ping();
