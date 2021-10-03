@@ -22,6 +22,10 @@ jobs:
           tools: phpize
           coverage: none
 
-      - name: Run Coding Style Checks
+      - name: Setup Deps
+        run:
+          composer install -o
+
+      - name: Coding Style Checks
         run:
           composer cs-check
