@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * This file is part of Simps.
  *
- * @link     https://github.com/simps/mqtt-cli
+ * @see     https://github.com/simps/mqtt-cli
  * @contact  Lu Fei <lufei@simps.io>
  *
  * For the full copyright and license information,
